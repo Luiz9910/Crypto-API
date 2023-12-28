@@ -2,7 +2,7 @@ package com.example.crypto.dto;
 
 import java.math.BigDecimal;
 
-public class CoinDTO {
+public class CoinTransactionDTO {
     private String name;
     private BigDecimal quantity;
 

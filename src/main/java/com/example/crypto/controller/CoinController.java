@@ -5,13 +5,11 @@ import com.example.crypto.repository.CoinRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping("/coin")
@@ -66,13 +64,23 @@ public class CoinController {
     }
 
     @PostMapping
-    public ResponseEntity post(@RequestBody Coin coin) {
+    public ResponseEntity create(@RequestBody Coin coin) {
         try {
             coin.setDateTime(new Timestamp(System.currentTimeMillis()));
             System.out.println(coin.getDateTime());
             return new ResponseEntity<>(coinRepository.insert(coin), HttpStatus.CREATED);
         } catch (Exception error) {
             return new ResponseEntity<>(error.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity update(@RequestBody Coin coin) {
+        try {
+            coin.setDateTime(new Timestamp(System.currentTimeMillis()));
+            return new ResponseEntity<>(coinRepository.update(coin), HttpStatus.OK);
+        } catch (Exception error) {
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.NO_CONTENT);
         }
     }
 
