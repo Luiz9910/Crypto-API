@@ -1,19 +1,33 @@
 package com.example.crypto.entity;
 
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.time.DateTimeException;
 
+@Entity
+@Table(name = "coin")
 public class Coin {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private int id;
+
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "PRICE")
     private BigDecimal price;
+
+    @Column(name = "QUANTITY")
     private BigDecimal quantity;
+
+    @Column(name = "DATETIME")
     private Timestamp DateTime;
 
     public int getId() {
-        return id;
-    }
+            return id;
+        }
 
     public void setId(int id) {
         this.id = id;
